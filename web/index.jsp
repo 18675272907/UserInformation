@@ -24,22 +24,11 @@
     <script src="js/bootstrap.min.js"></script>
   </head>
   <body>
-        <c:if test="${user ne null}">
-            <div >${user.name},欢迎您</div>
-            <div align="center">
-                <a href="${pageContext.request.contextPath}/findUserByPageServlet" style="text-decoration:none;font-size:33px">
-                    查询所有用户信息
-                </a>
-            </div>
-        </c:if>
-
-        <c:if test="${user eq null}">
-            <div align="center">
-                <a href="${pageContext.request.contextPath}/login.jsp">
-                    请登录
-                </a>
-            </div>
-        </c:if>
-
+        <div >${user.name},欢迎您</div>
+        <div align="center">
+            <a href="${pageContext.request.contextPath}/findUserByPageServlet" style="text-decoration:none;font-size:33px">
+                查询所有用户信息
+            </a>
+        </div>
   </body>
 </html>
