@@ -59,7 +59,7 @@ public class SensitiveWordsFilter implements Filter {
                     if (value != null){
                         for (String str : list) {
                             if (value.contains(str)){
-                                value.replaceAll(str,"***");
+                                value = value.replaceAll(str,"***");
                             }
                         }
                     }
@@ -74,7 +74,7 @@ public class SensitiveWordsFilter implements Filter {
                             for (String value : entry.getValue()) {
                                 for (String str : list) {
                                     if (value.contains(str)){
-                                        value.replaceAll(str,"***");
+                                        value = value.replaceAll(str,"***");
                                     }
                                 }
                             }
@@ -90,7 +90,7 @@ public class SensitiveWordsFilter implements Filter {
                         for (String value : values) {
                             for (String str : list) {
                                 if (value.contains(str)){
-                                    value.replaceAll(str,"***");
+                                    value = value.replaceAll(str,"***");
                                 }
                             }
                         }

@@ -36,6 +36,13 @@ public class FindUserByPageServlet extends HttpServlet {
 
         Map<String, String[]> condition = req.getParameterMap();
 
+        //敏感词汇验证
+        for (String[] values : condition.values()) {
+            for (String value : values) {
+                System.out.println(value);
+            }
+        }
+
         UserService userService = new UserServiceImpl();
         PageBean<User> pb = userService.findUserByPage(currentPage,rows,condition);
         System.out.println(pb);

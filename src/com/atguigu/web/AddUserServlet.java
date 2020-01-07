@@ -28,6 +28,15 @@ public class AddUserServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         //2.获取参数
         Map<String, String[]> map = req.getParameterMap();
+
+        //敏感词汇验证
+        for (String[] values : map.values()) {
+            for (String value : values) {
+                System.out.println(value);
+            }
+        }
+
+
         //3.封装对象
         User user = new User();
         try {
