@@ -19,7 +19,6 @@ import java.util.Set;
  * @auther lizongxiao
  * @date 2020/1/7 - 22:47
  */
-@WebFilter("/*")
 public class SensitiveWordsFilter implements Filter {
 
     private List<String> list = new ArrayList<String>();//敏感词汇集合
@@ -69,16 +68,20 @@ public class SensitiveWordsFilter implements Filter {
                 //判断方法名是否是 getParameterMap
                 if (method.getName().equals("getParameterMap")){
                     Map<String, String[]> map = (Map<String, String[]>)method.invoke(servletRequest, args);
-                    if (map != null){
-                        for (Map.Entry<String, String[]> entry : map.entrySet()) {
-                            for (String value : entry.getValue()) {
-                                for (String str : list) {
-                                    if (value.contains(str)){
-                                        value = value.replaceAll(str,"***");
-                                    }
+                    if (!map.isEmpty()){
+                        String[] names = (String[])map.get("name");
+                        System.out.println("names:" + names); //敏感词汇验证
+                        if (names != null && names.length > 0) {
+                            for (String str : list) {
+                                System.out.println("str:" + str); //敏感词汇验证
+                                if (names[0].contains(str)){
+                                    System.out.println("names[0]:" + names[0]); //敏感词汇验证
+                                    names[0] = names[0].replaceAll(str,"***");
+                                    System.out.println("names[0]:" + names[0]); //敏感词汇验证
                                 }
                             }
                         }
+                        return map;
                     }
                     return map;
                 }
@@ -88,11 +91,14 @@ public class SensitiveWordsFilter implements Filter {
                     String[] values = (String[])method.invoke(servletRequest, args);
                     if (values != null){
                         for (String value : values) {
-                            for (String str : list) {
-                                if (value.contains(str)){
-                                    value = value.replaceAll(str,"***");
+                            if (value != null){
+                                for (String str : list) {
+                                    if (value.contains(str)){
+                                        value = value.replaceAll(str,"***");
+                                    }
                                 }
                             }
+                            return values;
                         }
                     }
                     return values;

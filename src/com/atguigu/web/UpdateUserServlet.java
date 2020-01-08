@@ -27,10 +27,9 @@ public class UpdateUserServlet extends HttpServlet {
         Map<String, String[]> map = req.getParameterMap();
 
         //敏感词汇验证
-        for (String[] values : map.values()) {
-            for (String value : values) {
-                System.out.println(value);
-            }
+        String[] names = (String[])map.get("name");
+        if (names.length > 0) {
+            System.out.println(names[0]);
         }
 
         User user = new User();
