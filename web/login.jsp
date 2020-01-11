@@ -19,7 +19,7 @@
     <!-- 1. 导入CSS的全局样式 -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
-    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <!-- 3. 导入bootstrap的js文件 -->
     <script src="js/bootstrap.min.js"></script>
     <style>
@@ -27,12 +27,40 @@
             display: block !important;
         }
     </style>
-    <script type="text/javascript">
+    <script>
         //切换验证码
         function refreshCode() {
             var vcode = document.getElementById("vcode");
             vcode.src = "${pageContext.request.contextPath}/checkCodeServlet?time=" + new Date().getTime();
         }
+    </script>
+    <script>
+        //在页面加载完成后
+        $(function () {
+            //给username绑定blur事件
+            $("#username").blur(function () {
+                //获取username文本输入框的值
+                var username = $(this).val();
+                //发送ajax请求
+                //期望服务器响应回的数据格式：{"userExsit":true,"msg":"此用户名太受欢迎,请更换一个"}
+                //                         {"userExsit":false,"msg":"用户名可用"}
+                $.get("findUserServlet",{username:username},function (data) {
+                    //判断userExsit键的值是否是true
+
+                    // alert(data);
+                    var span = $("#s_username");
+                    if(data.userExsit){
+                        //用户名存在
+                        span.css("color","red");
+                        span.html(data.msg);
+                    }else{
+                        //用户名不存在
+                        span.css("color","green");
+                        span.html(data.msg);
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -40,9 +68,9 @@
         <h3 style="text-align: center">管理员登录</h3>
         <form action="${pageContext.request.contextPath}/loginServlet" method="post">
             <div class="form-group">
-                <label for="user">用户名：</label>
-                <input type="text" class="form-control" id="user"  name="username"  placeholder="请输入用户名">
-                <span></span>
+                <label for="username">用户名：</label>
+                <input type="text" class="form-control" id="username"  name="username"  placeholder="请输入用户名">
+                <span id="s_username"></span>
             </div>
             <div class="form-group">
                 <label for="password">密码：</label>

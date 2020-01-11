@@ -39,6 +39,23 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
+     * 校验用户名是否存在
+     * @param username
+     * @return
+     */
+    @Override
+    public User findUserByUsername(String username) {
+        try {
+            String sql = "select * from user where username = ?";
+            User user = template.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class), username);
+            return user;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 查询所有用户信息
      * @return
      */

@@ -24,7 +24,7 @@
 
     <!--监听器-->
     <listener>
-        <listener-class>com.atguigu.web.filter.ContextLoaderListener</listener-class>
+        <listener-class>com.atguigu.web.listener.ContextLoaderListener</listener-class>
     </listener>
 
 

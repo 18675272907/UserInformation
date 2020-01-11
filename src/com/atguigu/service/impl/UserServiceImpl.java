@@ -27,6 +27,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 校验用户名是否存在
+     * @param username
+     * @return
+     */
+    @Override
+    public User findUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
+    }
+
+    /**
      * 查询所有用户信息
      * @return
      */

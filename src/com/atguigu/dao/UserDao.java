@@ -20,6 +20,13 @@ public interface UserDao {
     User findUserByUsernameAndPassword(String username, String password);
 
     /**
+     * 校验用户名是否存在
+     * @param username
+     * @return
+     */
+    User findUserByUsername(String username);
+
+    /**
      * 查询所有用户信息
      * @return
      */

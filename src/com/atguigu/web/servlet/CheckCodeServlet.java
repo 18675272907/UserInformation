@@ -1,4 +1,4 @@
-package com.atguigu.web;
+package com.atguigu.web.servlet;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;

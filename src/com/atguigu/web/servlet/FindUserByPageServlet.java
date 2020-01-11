@@ -1,4 +1,4 @@
-package com.atguigu.web;
+package com.atguigu.web.servlet;
 
 import com.atguigu.domain.PageBean;
 import com.atguigu.domain.User;

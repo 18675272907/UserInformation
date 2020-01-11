@@ -1,4 +1,4 @@
-package com.atguigu.web;
+package com.atguigu.web.servlet;
 
 import com.atguigu.service.UserService;
 import com.atguigu.service.impl.UserServiceImpl;
@@ -11,18 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 删除选中
+ * 删除
  * @auther lizongxiao
- * @date 2020/1/5 - 23:57
+ * @date 2020/1/5 - 17:35
  */
-@WebServlet("/delSelectedServlet")
-public class DelSelectedServlet extends HttpServlet {
+@WebServlet("/delUserServlet")
+public class DelUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String[] uids = req.getParameterValues("uid");
-
+        String id = req.getParameter("id");
         UserService userService = new UserServiceImpl();
-        userService.delSelectedUser(uids);
+        userService.deleteUser(id);
 
         resp.sendRedirect(req.getContextPath() + "/findUserByPageServlet");
     }
