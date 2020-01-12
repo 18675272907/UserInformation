@@ -1,6 +1,7 @@
 package com.atguigu.dao.impl;
 
 import com.atguigu.dao.UserDao;
+import com.atguigu.domain.Province;
 import com.atguigu.domain.User;
 import com.atguigu.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
@@ -186,5 +187,16 @@ public class UserDaoImpl implements UserDao {
         System.out.println(params);
 
         return template.query(sql,new BeanPropertyRowMapper<User>(User.class),params.toArray());
+    }
+
+    /**
+     * 查询所有城市信息
+     * @return
+     */
+    @Override
+    public List<Province> findAllProvince() {
+        String sql = "select * from province ";
+        List<Province> list = template.query(sql, new BeanPropertyRowMapper<Province>(Province.class));
+        return list;
     }
 }

@@ -3,8 +3,13 @@ package com.atguigu.service.impl;
 import com.atguigu.dao.UserDao;
 import com.atguigu.dao.impl.UserDaoImpl;
 import com.atguigu.domain.PageBean;
+import com.atguigu.domain.Province;
 import com.atguigu.domain.User;
+import com.atguigu.jedis.util.JedisPoolUtils;
 import com.atguigu.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 import java.util.Map;
@@ -129,6 +134,48 @@ public class UserServiceImpl implements UserService {
         pb.setTotalPage(totalPage);
 
         return pb;
+    }
+
+    /**
+     * 查询所有城市信息
+     * @return
+     */
+    @Override
+    public List<Province> findAllProvince() {
+        return userDao.findAllProvince();
+    }
+
+    /**
+     * 缓存
+     * @return
+     */
+    @Override
+    public String findAllJson() {
+        //1.先从redis中查询数据
+        //1.1获取redis客户端连接
+        Jedis jedis = JedisPoolUtils.getJedis();
+        String province_json = jedis.get("province");
+        //2判断 province_json 数据是否为null
+        if (province_json == null || province_json.length() == 0){
+            //redis中没有数据
+            System.out.println("redis中没数据，查询数据库...");
+            //2.1从数据中查询
+            List<Province> ps = userDao.findAllProvince();
+            //2.2将list序列化为json
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                province_json = mapper.writeValueAsString(ps);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            //2.3 将json数据存入redis
+            jedis.set("province",province_json);
+            //归还连接
+            jedis.close();
+        }else {
+            System.out.println("redis中有数据，查询缓存...");
+        }
+        return province_json;
     }
 
 

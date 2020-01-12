@@ -22,7 +22,16 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <!-- 3. 导入bootstrap的js文件 -->
     <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript">
+    <script>
+        $(function () {
+            $.get("provinceServlet",{},function (data) {
+                var address = $("#address");
+                $(data).each(function () {
+                    var option = "<option name = '"+this.id+"' >"+this.name+"</option>"
+                    address.append(option);
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -45,10 +54,7 @@
             <div class="form-group">
                 <label for="address">籍贯：</label>
                 <select name="address" class="form-control" id="address">
-                    <option>北京</option>
-                    <option>上海</option>
-                    <option>杭州</option>
-                    <option>黑龙江</option>
+                    <option>--请选择省份--</option>
                 </select>
             </div>
             <div class="form-group">

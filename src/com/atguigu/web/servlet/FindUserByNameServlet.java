@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 验证用户名
  * @auther lizongxiao
  * @date 2020/1/11 - 12:10
  */

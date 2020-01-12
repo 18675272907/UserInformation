@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import com.atguigu.domain.PageBean;
+import com.atguigu.domain.Province;
 import com.atguigu.domain.User;
 
 import java.util.List;
@@ -70,4 +71,16 @@ public interface UserService {
      * @return
      */
     PageBean<User> findUserByPage(String currentPage, String rows, Map<String, String[]> condition);
+
+    /**
+     * 查询所有城市信息
+     * @return
+     */
+    public List<Province> findAllProvince();
+
+    /**
+     * 缓存
+     * @return
+     */
+    public String findAllJson();
 }

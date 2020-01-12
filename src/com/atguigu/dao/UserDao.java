@@ -1,5 +1,6 @@
 package com.atguigu.dao;
 
+import com.atguigu.domain.Province;
 import com.atguigu.domain.User;
 
 import java.util.List;
@@ -72,4 +73,10 @@ public interface UserDao {
      * @return
      */
     List<User> findByPage(int start, int rows, Map<String, String[]> condition);
+
+    /**
+     * 查询所有城市信息
+     * @return
+     */
+    public List<Province> findAllProvince();
 }

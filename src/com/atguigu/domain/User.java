@@ -1,6 +1,7 @@
 package com.atguigu.domain;
 
 /**
+ * 用户信息
  * @auther lizongxiao
  * @date 2020/1/3 - 21:54
  */
